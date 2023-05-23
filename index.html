@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description"
+          content="Calculate supplies, time, ">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="build" content="{{ site.time | date_to_xmlschema }}">
+    <title>HLL Engineer Calculator</title>
+    <link rel="icon" href="./icon.png">
+    <link rel="preconnect" href="//cdn.jsdelivr.net" crossorigin>
+
+    <!-- Dependencies -->
+    <link href="//cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-nightshade.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/npm/bootstrap-input-spinner@3.3.2/src/bootstrap-input-spinner.min.js"
+            type="text/javascript"></script>
+    <script src="//cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js" type="text/javascript"></script>
+
+    <!-- Apps -->
+    <link href="./styles.css?v={{ site.time | date_to_xmlschema }}" rel="stylesheet"/>
+    <script src="./script.js?v={{ site.time | date_to_xmlschema }}" type="text/javascript"></script>
+
+    <!-- Analytics -->
+    <script defer data-domain="mattw.io" src="https://plausible.io/js/plausible.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light mb-3" style="border-bottom: 1px solid rgba(127,127,127,0.1);">
+    <span class="container">
+        <div class="navbar-brand">
+            <img src="./icon.png" alt="" class="d-inline-block align-text-top"><span style="padding-left: .75rem;">HLL Engineer Calculator</span>
+        </div>
+    </span>
+</nav>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col col-mb-6">
+            <h4>I want to build...</h4>
+
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Bunker Lvl 1</strong></label>
+                    <input id="bunker1" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="75" data-per-person="1" data-person="engi">
+                    <div class="form-text">75</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Bunker Lvl 2</strong></label>
+                    <input id="bunker2" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="200" data-per-person="1" data-person="engi">
+                    <div class="form-text">125 (200 total)</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Bunker Lvl 3</strong></label>
+                    <input id="bunker3" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="300" data-per-person="1" data-person="engi">
+                    <div class="form-text">150 (350 total)</div>
+                </div>
+                <small class="text-muted">
+                    1 bunker per engi
+                </small>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Barricade Lvl 1</strong></label>
+                    <input id="barricade1" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="25" data-person="engi">
+                    <div class="form-text">25</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Barricade Lvl 2</strong></label>
+                    <input id="barricade2" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="75" data-person="engi">
+                    <div class="form-text">50 (75 total)</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Barricade Lvl 3</strong></label>
+                    <input id="barricade3" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="150" data-person="engi">
+                    <div class="form-text">75 (150 total)</div>
+                </div>
+                <small class="text-muted">
+                    4 barricades per engi
+                </small>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Belgian Gate</strong></label>
+                    <input id="gate" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="30" data-per-person="2" data-person="engi">
+                    <div class="form-text">30<br>2 gates per German engi</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Hedgehog</strong></label>
+                    <input id="hedgehog" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="25" data-per-person="3" data-person="engi">
+                    <div class="form-text">25<br>3 per American engi</div>
+                </div>
+                <small class="text-muted">
+                </small>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Barbed wire</strong></label>
+                    <input id="wire" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="10" data-per-person="4" data-person="engi">
+                    <div class="form-text">10<br>4 wires per engi</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Repair station</strong></label>
+                    <input id="repair" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="50" data-per-person="1" data-person="engi">
+                    <div class="form-text">50<br>1 station per engi</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Node (any)</strong></label>
+                    <input id="nodes" value="0" min="0" max="9" step="1" type="number" autocomplete="off"
+                           data-cost="50" data-per-person="3" data-person="engi">
+                    <div class="form-text">50<br>3 nodes per engi</div>
+                </div>
+                <small class="text-muted">
+                </small>
+            </div>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>AT Gun</strong></label>
+                    <input id="at-gun" value="0" min="0" max="24" step="1" type="number" autocomplete="off"
+                           data-cost="50" data-per-person="1" data-person="at">
+                    <div class="form-text">50<br>1 gun per AT</div>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Garrison</strong></label>
+                    <input id="garrison" value="0" min="0" max="9" step="1" type="number" autocomplete="off"
+                           data-cost="50" data-person="leader">
+                    <div class="form-text">50<br>Strongpoint 2x2 garry</div>
+                </div>
+                <small class="text-muted">
+                </small>
+            </div>
+        </div>
+        <div class="col col-mb-6">
+            <h4>Calculate</h4>
+            <div class="row" style="margin-bottom: 10px">
+                <div class="col-md-4">
+                    <label class="form-label"><strong>Truck round trip</strong></label>
+                    <input id="distance" data-suffix="m" value="1400" min="1" max="2332" step="25" type="number" autocomplete="off">
+                    <div class="form-text">33 km/h supply truck<br>8.69 m/s</div>
+                </div>
+                <small class="text-muted">
+                </small>
+            </div>
+            <br>
+            <h4>Results</h4>
+            <ul>
+                <li>To build...
+                    <ul id="structure-list">
+                    </ul>
+                </li>
+                <li>
+                    You'll need <span id="total-supplies" class="orange">0</span> supplies
+                </li>
+                <li>
+                    You'll need <span id="people"></span>
+                </li>
+                <li>
+                    It will take approximately <span id="total-truck-runs" class="orange">0</span> supply truck runs
+                    which would take <span id="approx-drive-time" class="orange">0</span>
+                </li>
+            </ul>
+            <button id="reset" type="button" class="btn btn-outline-success">Reset all</button>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <h4>Resources</h4>
+    <ul>
+        <li><a target="_blank" href="https://hellletloose.fandom.com/wiki/Category:Structures">
+            Hell Let Loose Wiki - Structures
+        </a> - Guide/data used for this tool
+        </li>
+        <li><a target="_blank" href="https://mattw.io/maps-let-loose/">
+            Maps Let Loose
+        </a> - Use the Measure Line to calculate general distance for truck runs
+        </li>
+
+    </ul>
+
+</div>
+
+<div class="ui container" style="padding-top:3%;padding-bottom:3%;color:darkgray;text-align:center">
+    mattwright324 | 2023 | <a href="/">home</a> | <a target="_blank" href="https://github.com/mattwright324">github</a>
+    | <a target="_blank" href="https://github.com/mattwright324/hll-engineer-calc">hll-engineer-calc</a>
+</div>
+</body>
+</html>
