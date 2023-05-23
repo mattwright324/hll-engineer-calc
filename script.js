@@ -57,7 +57,7 @@
                     people[item.personType] = Math.max(people[item.personType], Math.floor(item.value / item.perPerson))
                 }
             }
-            people.engi += Math.floor((values.barricade1.value + values.barricade2.value + values.barricade3.value) / barricadePerPerson)
+            people.engi = Math.max(people[item.personType], Math.floor((values.barricade1.value + values.barricade2.value + values.barricade3.value) / barricadePerPerson))
             $("#total-supplies").text(totalSupplies);
             $("#total-engineers").text(0);
             const peopleStr = [
