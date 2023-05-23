@@ -54,7 +54,7 @@
                     totalSupplies += item.value * item.cost;
                 }
                 if (item.perPerson && item.personType && item.value) {
-                    people[item.personType] = Math.max(people[item.personType], Math.floor(item.value / item.perPerson))
+                    people[item.personType] = Math.max(people[item.personType], Math.ceil(item.value / item.perPerson))
                 }
             }
             people.engi = Math.max(people.engi, Math.ceil((values.barricade1.value + values.barricade2.value + values.barricade3.value) / barricadePerPerson))
