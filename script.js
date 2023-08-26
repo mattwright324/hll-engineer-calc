@@ -2,6 +2,8 @@
     $(window).init(function () {
         console.log("window init")
         $("input[type='number']").inputSpinner();
+        const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
         function formatDuration(duration, includeMs, ignoreTime) {
             const years = duration.years();
@@ -31,6 +33,7 @@
         const suppliesPerRun = 300;
         const metersPerSecond = 8.69;
         const barricadePerPerson = 4;
+        const bunkerPerPerson = 1;
 
         function calculate() {
             const values = {}
@@ -49,6 +52,9 @@
             }
             let totalSupplies = 0;
             for (key in values) {
+                if (key.startsWith("bunker") || key.startsWith("barricade")) {
+                    continue
+                }
                 const item = values[key];
                 if (item.value && item.cost) {
                     totalSupplies += item.value * item.cost;
@@ -58,6 +64,7 @@
                 }
             }
             people.engi = Math.max(people.engi, Math.ceil((values.barricade1.value + values.barricade2.value + values.barricade3.value) / barricadePerPerson))
+            people.engi = Math.max(people.engi, Math.ceil((values.bunker1.value + values.bunker2.value + values.bunker3.value) / bunkerPerPerson))
             $("#total-supplies").text(totalSupplies);
             $("#total-engineers").text(0);
             const peopleStr = [
