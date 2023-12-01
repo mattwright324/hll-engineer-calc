@@ -52,12 +52,12 @@
             }
             let totalSupplies = 0;
             for (key in values) {
-                if (key.startsWith("bunker") || key.startsWith("barricade")) {
-                    continue
-                }
                 const item = values[key];
                 if (item.value && item.cost) {
                     totalSupplies += item.value * item.cost;
+                }
+                if (key.startsWith("bunker") || key.startsWith("barricade")) {
+                    continue
                 }
                 if (item.perPerson && item.personType && item.value) {
                     people[item.personType] = Math.max(people[item.personType], Math.ceil(item.value / item.perPerson))
